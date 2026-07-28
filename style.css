@@ -590,11 +590,9 @@ footer{
   flex-wrap: nowrap;
   gap: 1.5rem;
   width: max-content;
-  /* L'animation tourne en continu pendant 25 secondes */
   animation: scrollAuto 25s linear infinite;
 }
 
-/* Pause du défilement lorsque l'utilisateur survole la bannière */
 .banner-carousel:hover .carousel-track {
   animation-play-state: paused;
 }
@@ -633,6 +631,39 @@ footer{
   letter-spacing: .08em;
   text-transform: uppercase;
   text-align: center;
+}
+
+/* Animation de défilement */
+@keyframes scrollAuto {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 0.75rem));
+  }
+}
+
+/* Adaptation Mobile */
+@media (max-width: 880px) {
+  .carousel-slide {
+    flex: 0 0 220px;
+    height: 270px;
+  }
+}
+
+/* Carte Logo dans la bannière */
+.carousel-slide.logo-slide {
+  background: var(--ombre);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.carousel-slide .slide-logo-img {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
 }
 
 /* KEYFRAMES : animation de défilement horizontal */
