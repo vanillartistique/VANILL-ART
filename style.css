@@ -177,6 +177,7 @@ a{ color: inherit; }
   overflow: hidden;
 }
 
+/* Fond uni harmonieux avec dégradé radial */
 .hero-bg{
   position: absolute;
   inset: 0;
@@ -232,6 +233,7 @@ a{ color: inherit; }
 }
 .hero-side.left{ left: 6vw; }
 
+/* Styles spécifiques pour l'image Arôme de vanille (droite) */
 .hero-side.right{
   right: 6vw;
   width: 220px;
@@ -320,6 +322,7 @@ a{ color: inherit; }
   color: var(--or);
 }
 
+/* ---------- Logos latéraux parfaitement alignés ---------- */
 .manifest h2{
   position: relative;
   z-index: 3;
@@ -532,11 +535,29 @@ footer{
   text-transform: uppercase;
 }
 
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px){
+  .hero-side{ display: none; } /* Masque les images latérales sur écran réduit pour ne pas surcharger le titre */
+}
+
+@media (max-width: 880px){
+  .story{ grid-template-columns: 1fr; }
+  .manifest-grid{ grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+  .gallery-card.wide{ grid-column: span 2; }
+
+  .expedition-media{ min-height: 40vh; }
+  .expedition-text{ min-height: auto; padding: 4rem 6vw; background: var(--noir); }
+  .expedition-media::after{ display: none; }
+  .expedition-media img{ min-height: 40vh; }
+
+  .expedition-text p{ color: var(--creme-dim) !important; }
+}
 /* Positionnement spécifique de l'image de l'arôme en bas à droite */
 .hero-arome {
   position: absolute;
-  bottom: 8vh;
-  right: 6vw;
+  bottom: 8vh; /* Aligné avec la partie basse / le titre */
+  right: 6vw;  /* Alignement à droite */
   width: 220px;
   height: 260px;
   object-fit: cover;
@@ -548,10 +569,16 @@ footer{
   animation: fade-in 1s ease-out .8s forwards;
 }
 
+/* Ajustement pour les écrans mobiles et tablettes */
+@media (max-width: 1024px) {
+  .hero-arome {
+    display: none; /* Masqué sur écran étroit pour ne pas chevaucher le texte */
+  }
+}
 /* ---------- BANNIÈRE DÉFILANTE AUTOMATIQUE ---------- */
 .banner-carousel {
   width: 100%;
-  overflow: hidden;
+  overflow: hidden; /* Masque le surplus d'images */
   background: var(--noir);
   padding: 2rem 0;
   border-top: 1px solid rgba(199, 154, 69, 0.2);
@@ -563,9 +590,11 @@ footer{
   flex-wrap: nowrap;
   gap: 1.5rem;
   width: max-content;
+  /* L'animation tourne en continu pendant 25 secondes */
   animation: scrollAuto 25s linear infinite;
 }
 
+/* Pause du défilement lorsque l'utilisateur survole la bannière */
 .banner-carousel:hover .carousel-track {
   animation-play-state: paused;
 }
@@ -606,7 +635,24 @@ footer{
   text-align: center;
 }
 
-/* Carte Logo dans la bannière */
+/* KEYFRAMES : animation de défilement horizontal */
+@keyframes scrollAuto {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Décale la piste de exactement la moitié de sa largeur totale */
+    transform: translateX(calc(-50% - 0.75rem));
+  }
+}
+
+/* Adaptation Mobile */
+@media (max-width: 880px) {
+  .carousel-slide {
+    flex: 0 0 220px;
+    height: 270px;
+  }
+}/* Style spécifique pour la carte du logo dans la bannière */
 .carousel-slide.logo-slide {
   background: var(--ombre);
   display: flex;
@@ -618,38 +664,62 @@ footer{
 .carousel-slide .slide-logo-img {
   width: 80%;
   height: auto;
-  object-fit: contain;
+  object-fit: contain; /* Conserve les proportions du logo */
+}
+/* ---------- Carte Google Maps ---------- */
+.map-container {
+  margin-top: 2rem;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(199, 154, 69, 0.3); /* Bordure couleur Or Gousse */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.3s ease;
 }
 
-/* Animation de défilement horizontal */
-@keyframes scrollAuto {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-50% - 0.75rem));
-  }
+.map-container:hover {
+  border-color: var(--or);
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 1024px){
-  .hero-side, .hero-arome { display: none; }
+.map-container iframe {
+  display: block;
+  width: 100%;
+  /* Filtre optionnel pour adoucir le contraste avec le fond sombre */
+  filter: grayscale(20%) contrast(105%);
+}
+/* ---------- SECTION CARTE GOOGLE MAPS (BAS DE PAGE) ---------- */
+.map-section {
+  padding: 4rem 0;
+  background: var(--noir);
+  border-top: 1px solid rgba(243, 233, 215, 0.08);
 }
 
-@media (max-width: 880px){
-  .story{ grid-template-columns: 1fr; }
-  .manifest-grid{ grid-template-columns: repeat(2, 1fr); }
-  .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
-  .gallery-card.wide{ grid-column: span 2; }
+.map-title {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--or);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
 
-  .expedition-media{ min-height: 40vh; }
-  .expedition-text{ min-height: auto; padding: 4rem 6vw; background: var(--noir); }
-  .expedition-media::after{ display: none; }
-  .expedition-media img{ min-height: 40vh; }
-  .expedition-text p{ color: var(--creme-dim) !important; }
+.map-container {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(199, 154, 69, 0.3); /* Bordure couleur Or Gousse */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .carousel-slide {
-    flex: 0 0 220px;
-    height: 270px;
-  }
+.map-container:hover {
+  border-color: var(--or);
+  box-shadow: 0 12px 36px rgba(199, 154, 69, 0.15);
+}
+
+.map-container iframe {
+  display: block;
+  width: 100%;
+  filter: grayscale(15%) contrast(105%); /* Adoucit les couleurs de la carte pour s'intégrer au thème sombre */
 }
